@@ -26,15 +26,16 @@ with st.sidebar:
     st.caption("Multi-Agent Learning Support System")
     st.divider()
     
-    # API Key Handling (Reads from environment/secrets if set, otherwise prompts user)
-    default_key = os.getenv("GROQ_API_KEY", "")
-    api_key_input = st.text_input(
-        "Groq API Key",
-        value=default_key,
-        type="password",
-        placeholder="Enter your Groq API key (gsk_...)",
-        help="Enter your Groq API key to activate the agents."
-    )
+    # Securely retrieve API Key from secrets/environment in the background
+    api_key_input = st.secrets.get("GROQ_API_KEY") or os.getenv("GROQ_API_KEY")
+    
+    st.markdown("### Agent Architecture")
+    st.markdown("""
+    - **Doc Agent:** PDF Ingestion & Summarization
+    - **Quiz Agent:** Automated MCQ Generation
+    - **Performance Agent:** Weak-Spot Diagnostic
+    - **Planner Agent:** Personalized Study Schedule
+    """)
     
     st.divider()
     st.markdown("### Agent Architecture")
